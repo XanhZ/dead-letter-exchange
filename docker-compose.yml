@@ -1,0 +1,21 @@
+version: 3.7
+
+services:
+  rabbitmq:
+
+    image: rabbitmq-xanhz
+    container_name: rabbitmq
+    command: ["bash", "-c", "chmod 400 /var/lib/rabbitmq/.erlang.cookie; rabbitmq-server"]
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - ./rabbitmq/data/:/var/lib/rabbitmq/
+      - ./rabbitmq/log/:/var/log/rabbitmq/
+
+networks:
+  default:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.101.0.0/24
